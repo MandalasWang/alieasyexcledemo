@@ -12,11 +12,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,14 +91,12 @@ public class ExcelUtil {
     public   List<DemoData> simpleRead(String fileName)throws Exception {
         // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
 //        // 写法1：
-//        String fileName = TestFileUtil.getPath() + "demo" + File.separator + "demo.xlsx";
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
         // EasyExcel.read(fileName, DemoData.class, new DemoDataListener()).sheet().doRead();
         DataListener dataListener = new DataListener();
         EasyExcel.read(getInputStream(fileName),DemoData.class,dataListener).sheet().doRead();
         return dataListener.saveData();
         // 写法2：
-//        fileName = TestFileUtil.getPath() + "demo" + File.separator + "demo.xlsx";
 //        ExcelReader excelReader = EasyExcel.read(fileName, DemoData.class, new DemoDataListener()).build();
 //        ReadSheet readSheet = EasyExcel.readSheet(0).build();
 //        excelReader.read(readSheet);
