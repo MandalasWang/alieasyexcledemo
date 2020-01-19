@@ -1,5 +1,6 @@
 package ink.boyuan.testalieasyexcle;
 
+import ink.boyuan.testalieasyexcle.exclemodel.ComplexHeadData;
 import ink.boyuan.testalieasyexcle.exclemodel.DemoData;
 import ink.boyuan.testalieasyexcle.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,10 @@ public class TestWriteController {
     @Autowired
     private ExcelUtil excelUtil;
 
-
+    /**
+     * simpleWrite
+     * @param response
+     */
     @RequestMapping(value = "report")
     public void testWrite(HttpServletResponse response) {
         List<DemoData> list = new ArrayList<>();
@@ -40,5 +44,22 @@ public class TestWriteController {
         }
     }
 
-
+    /**
+     * complexHeadWrite
+     * @param response
+     */
+    @RequestMapping(value = "complexReport")
+    public void complexHeadWrite(HttpServletResponse response) {
+        List<ComplexHeadData> list = new ArrayList<>();
+        ComplexHeadData demoData = new ComplexHeadData
+                ("测试1",
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")).toString(),
+                        200.00);
+        list.add(demoData);
+        try {
+            excelUtil.writeExcel(response, list, "测试复杂头", "user", demoData.getClass());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
