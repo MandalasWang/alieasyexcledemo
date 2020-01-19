@@ -41,7 +41,7 @@ public class ExcelUtil {
      */
     private  final Logger LOGGER = LoggerFactory.getLogger(ExcelUtil.class);
 
-    public  void writeExcel(HttpServletResponse response, List<? extends Object> data,
+    public  void writeExcel(HttpServletResponse response, List<?> data,
                                   String fileName, String sheetName, Class model) throws Exception {
         // 头的策略
         WriteCellStyle headWriteCellStyle = new WriteCellStyle();
@@ -106,8 +106,7 @@ public class ExcelUtil {
 
     private  InputStream getInputStream(String fileName) throws Exception {
         try {
-            InputStream inputStream = new BufferedInputStream(new FileInputStream(fileName));
-            return inputStream;
+            return new BufferedInputStream(new FileInputStream(fileName));
         } catch (IOException e) {
             throw new Exception("写入表格失败！", e);
         }

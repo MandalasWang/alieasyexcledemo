@@ -34,7 +34,7 @@ public class TestWriteController {
                         200.00);
         list.add(demoData);
         try {
-            excelUtil.writeExcel(response, list, "test", "user", demoData.getClass());
+            excelUtil.writeExcel(response, list, "测试", "user", demoData.getClass());
         } catch (Exception e) {
             e.printStackTrace();
         }
