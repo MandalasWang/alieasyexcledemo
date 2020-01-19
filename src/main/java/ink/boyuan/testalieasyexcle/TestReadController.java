@@ -17,11 +17,30 @@ import java.util.List;
  **/
 @RestController
 public class TestReadController {
+
     @Autowired
     private ExcelUtil excelUtil;
 
+    /**
+     * 最简单的读
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "read")
     public List<DemoData> simpleRead(@RequestParam(value = "filePath") String filePath) throws Exception {
+        List<DemoData> demoData = excelUtil.simpleRead(filePath);
+        return demoData;
+    }
+
+    /**
+     * 复杂头读入  使用DemoData 接
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "complexRead")
+    public List<DemoData> complexRead(@RequestParam(value = "filePath") String filePath) throws Exception {
         List<DemoData> demoData = excelUtil.simpleRead(filePath);
         return demoData;
     }
